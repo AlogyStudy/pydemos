@@ -97,6 +97,11 @@ ime.save(os.path.join(dirname, 'timge.jpg'))
 
 > 手绘效果
 
+1. 梯度重构
+2. 光源效果
+3. 梯度归一化
+4. 图像生成
+
 手绘效果特征：
 - 黑白灰色系
 - 边界线条较重
@@ -121,3 +126,33 @@ grad_y = grad_y * depth / 100 # 根据深度调整x和y方向的梯度值
 - 光源相对于图像的俯视角为Elevation, 方位角为Azimuth。
 - 建立光源对于梯度值的影响函数。
 - 运算出各点的新像素值。
+
+光源效果：
+![](./img/1.png)
+
+```python
+vec_el = np.pi / 2.2
+vec_az = np.pi / 4.
+
+dx = np.cos(vec_el) * np.cos(vec_az) # np.cos(vec_el)为单位光线，在地平面上的投影长度
+dy = np.cos(vec_el) * np.sin(vec_az)
+dz = np.sin(vec_el) # dx, dy, dz是光源对x,y,z三方向的影响程度
+```
+
+梯度归一化：
+```python
+A = np.sqrt(grad_x ** 2 + grad_y ** 2 + 1.) # 构造x和y轴梯度的三维归一化单位坐标系
+uni_x = grad_x / A
+uni_y = grad_y / A
+uni_z = 1. / A
+
+b = 255 * (dx * uni_x + dy * uni_y + dz * uni_z) # 梯度与光源相互作用，将梯度转化为灰度
+```
+
+图像生成：
+```python
+b = b.clip(0, 255) # 为避免数据越界，将生成的灰度值裁剪至0~255区间
+
+im = Image.fromarray(b.astype('uint8'))
+im.save('')
+```
