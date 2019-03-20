@@ -2,3 +2,69 @@
 
 ## 生成字母验证码图片
 
+`chr()`: 返回某个十进制对应的ASCII，例如`chr(99)`是`c`。
+配合`random.randint(65, 91)`随机方法，生成随机字符，用于生产随机验证码。
+```python
+import random
+
+for i in range(10):
+    a = random.randint(65, 91)
+    b = chr(a)
+    print(b)
+```
+
+> 生成图片步骤
+
+1. 创建`image`对象。
+2. 创建`Draw`对象，`ImageDraw.Draw()`。
+3. 添加元素（色彩，文字，字体），增加模糊。
+4. 保存图片。
+
+```python
+import os
+import random
+import sys
+
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
+
+
+# 随机字母:
+def rndChar():
+    return chr(random.randint(65, 90))
+
+# 随机颜色1:
+def rndColor():
+    return (random.randint(64, 255), random.randint(64, 255), random.randint(64, 255))
+
+# 随机颜色2:
+def rndColor2():
+    return (random.randint(32, 127), random.randint(32, 127), random.randint(32, 127))
+
+def main():
+    # 240 x 60:
+    width = 60 * 4
+    height = 60
+    image = Image.new('RGB', (width, height), (255, 255, 255))
+
+    # 创建Draw对象:
+    draw = ImageDraw.Draw(image)
+
+    # 填充每个像素:
+    for x in range(width):
+        for y in range(height):
+            draw.point((x, y), fill=rndColor())
+
+    # 创建Font对象:
+    font = ImageFont.truetype('Arial.ttf', 24)
+
+    # 输出文字:
+    for t in range(4):
+        draw.text((60 * t + 10, 10), rndChar(), font=font, fill=rndColor2())
+
+    # 模糊:
+    image = image.filter(ImageFilter.BLUR)
+    image.save(os.path.join(sys.path[0], 'code.jpg'), 'jpeg')
+
+if __name__ == "__main__":
+    main()
+```
