@@ -23,10 +23,17 @@ def getD():
     for key, value in res.cookies.items():
         print(key + '--' + value)
 
+def getE():
+        s = requests.Session()
+        s.get('http://httpbin.org/cookies/set/number/123456789')
+        response = s.get('http://httpbin.org/cookies')
+        print(response.text)
+
 def main():
     # getB()
     # getC()
-    getD()
+#     getD()
+        getE()
 
 
 if __name__ == '__main__':

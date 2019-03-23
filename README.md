@@ -7,6 +7,7 @@ py demos
 - `friendsHeadStitch`, 微信个人号接口，统计用户，头像拼接。
 - `pi`, 计算π值大小。
 - `GPS`, GPS定位
+- `qrcode`, 验证码
 
 ## python库
 

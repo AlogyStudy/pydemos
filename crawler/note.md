@@ -18,6 +18,7 @@ headers = {
 }
 
 res = requests.get('url', hreaders=hreaders)
+res.encoding = 'utf-8'
 print(res.text)
 ```
 
@@ -67,4 +68,28 @@ import requests
 files = {'file': open('./f.ico', 'rb')}
 res = requests.post('http://httpbin.org/post', files=files)
 print(res.text)
+```
+保持会话：
+```python
+import requests
+
+s = requests.Session()
+s.get('http://httpbin.org/cookies/set/number/123456789')
+response = s.get('http://httpbin.org/cookies')
+print(response.text)
+```
+验证证书：
+```python
+import requests
+from requests.packages import urllib3
+urllib3.disable_warnings()
+response = requests.get('https://www.12306.cn', verify=False)
+print(response.status_code)
+```
+-----
+```python
+import requrests
+
+response = requests.get('https://www.12306.cn', cert=('/path/server.crt', '/path/key'))
+print(response.status_code)
 ```
