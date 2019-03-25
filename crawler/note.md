@@ -93,3 +93,13 @@ import requrests
 response = requests.get('https://www.12306.cn', cert=('/path/server.crt', '/path/key'))
 print(response.status_code)
 ```
+代理设置：
+```python
+import requests
+proxy = {
+    'http': 'socks5://127.0.0.1:9742',
+    'https': 'socks5://127.0.0.1:9742'
+}
+
+res = requests.get(url, proxies=proxy)
+```
