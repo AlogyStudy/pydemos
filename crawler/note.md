@@ -103,3 +103,36 @@ proxy = {
 
 res = requests.get(url, proxies=proxy)
 ```
+超时设置：
+```python
+import requests
+
+from requests.exceptions import ReadTimeout
+
+try:
+    res = requests.get('http://httpbin.org/get', timetou=0.5)
+    print(res.status_code)
+except ReadTimeout:
+    print('timeout')
+```
+认证设置：
+```python
+import requests
+from requests.auth import HTTPBasicAuth
+
+# res = requests.get('url', auth=HTTPBasicAuth('user', '123'))
+res = requests.get('url', auth=('user', '123'))
+print(res.status_code)
+```
+
+## Urllib
+
+```python
+# py2
+import urllib2
+res = urllib2.open('url')
+
+# py3
+import urllib.request
+res = urllib.request.urlopen('url')
+```
