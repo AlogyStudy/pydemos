@@ -19,6 +19,7 @@ headers = {
 
 res = requests.get('url', hreaders=hreaders)
 res.encoding = 'utf-8'
+res.apparent_encoding = 'utf-8'
 print(res.text)
 ```
 
@@ -135,4 +136,20 @@ res = urllib2.open('url')
 # py3
 import urllib.request
 res = urllib.request.urlopen('url')
+```
+
+`get`请求：
+```python
+import urllib.request
+res = urllib.request.urlopen('http:/www.baidu.com')
+print(res.read().decode('utf-8'))
+```
+`post`请求：
+```python
+import urllib.request
+import urllib.parse
+
+data = bytes(urllib.parse.urlencode({'hello': 'world'}), encoding='utf-8')
+res = urllib.request.urlopen('http://httpbin.org/post', data=data)
+print(res.read().decode('utf-8'))
 ```
