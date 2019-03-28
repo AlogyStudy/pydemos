@@ -24,16 +24,27 @@ def getD():
         print(key + '--' + value)
 
 def getE():
-        s = requests.Session()
-        s.get('http://httpbin.org/cookies/set/number/123456789')
-        response = s.get('http://httpbin.org/cookies')
-        print(response.text)
+    s = requests.Session()
+    s.get('http://httpbin.org/cookies/set/number/123456789')
+    response = s.get('http://httpbin.org/cookies')
+    print(response.text)
+
+def getHTMLText(url):
+    try:
+        r = requests.get(url, timeout=30)
+        r.raise_for_status()
+        r.encoding = r.apparent_encoding
+        return r.text
+    except:
+        return '产生异常'
 
 def main():
     # getB()
     # getC()
 #     getD()
-        getE()
+        # getE()
+    ret = getHTMLText('http://www.baidu.com')
+    print(ret)
 
 
 if __name__ == '__main__':
