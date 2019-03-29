@@ -157,7 +157,36 @@ print(res.read().decode('utf-8'))
 import urllib.request
 import urllib.parse
 
+
 data = bytes(urllib.parse.urlencode({'hello': 'world'}), encoding='utf-8')
 res = urllib.request.urlopen('http://httpbin.org/post', data=data)
 print(res.read().decode('utf-8'))
+```
+`post`请求携带请求头：
+```python
+from urllib import request, parse
+
+headers = {
+    'User-Agent': 'Mozilla/4.0(compatible;MSIE 5.5;Windows NT)',
+    'Host': 'httpbin.org'
+}
+data = bytes(parse.urlencode({'hello': 'wrold'}), encoding='utf-8')
+req = request.Requests(url=url, data=data, headers=headers, methods='POST')
+# req.add_header('User-Agent', 'Mozilla/4.0(compatible;MSIE 5.5;Windows NT)')
+resp = request.urlopen(req)
+print(resp.read().decode('utf-8'))
+```
+设置代理：
+```python
+from urllib import request
+
+
+proxy_handler = request.ProxyHandler({
+    'http': 'http://127.0.0.1:9743',
+    'https': 'https://127.0.0.1:9743'
+})
+
+opener = request.build_opener(proxy_handler)
+resp = opener.open('http://www.baidu.com')
+print(resp.read())
 ```
