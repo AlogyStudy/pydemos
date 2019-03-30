@@ -1,7 +1,32 @@
 
 ## 相关信息
 
-- `robots.txt`协议，网络爬虫排除标准。
+- `Robots.txt`协议，网络爬虫排除标准。
+    作用：网站告知网络爬虫哪些页面可以抓取，哪些不行。
+    形式：在网站根目录下的`robots.txt`文件中规定。
+
+```
+User-agent: *  # 所有的网络爬虫都应该遵循如下协议
+Disallow: /?* # 不允许访问以？开头都卢金
+Disallow: /pop/*.html # 任何爬虫都不允许访问/pop/*.html
+Disallow: /pinpai/*.html?*   # 符合这个定义规则的也不允许访问。
+
+# 底下四个爬虫，不允许爬取任何资源。
+User-agent: EtaoSpider 
+Disallow: / 
+User-agent: HuihuiSpider 
+Disallow: / 
+User-agent: GwdangSpider 
+Disallow: / 
+User-agent: WochachaSpider 
+Disallow: /
+```
+
+`Robots`协议的使用：
+网络爬虫：自动或人工识别robots.txt,再进行内容爬取。
+约束性：`Robots`协议是建议但非约束性，网络爬虫可以不遵守，但存在法律风险。
+
+类似人类访问的行为，访问次数很小，可以不遵守`Robots`协议。
 
 ## Requests
 
@@ -132,6 +157,31 @@ print(res.status_code)
 `requests.TooManyRedirects`: 超过最大重定向次数，产生重定向异常。
 `requests.ConnectTimeout`: 连接远程服务器超时异常。
 `requests.Timeout`: 请求URL超时，产生超时异常。
+
+操作之间都是独立无状态的。
+`http`的世界中，网络通道跟服务器都是黑盒子。
+能看到的就是url链接和对url链接进行的操作。
+
+`PATCH`方法和`PUT`方法的区别：
+假设URL位置有一组数据UserInfo，包括UserId，UserName，等20个字段。
+需求：用户更改UserName，其它的用户信息没有更新。
+
+使用`PATCH`方法，向URL提供修改的值UserName即可。节省网络带宽。
+使用`PUT`，必须将所有的20个字段，一并提交URL参数，未提交字段删除。
+
+网络爬虫的尺寸：
+- 爬取网页，玩转网页。小规模，数据量小，爬取速度不敏感。可以使用`requests`，`urllib`库。占90%以上的比例。
+- 爬取网站，爬取系列网站。中规模，数据量比较大，爬取速度敏感。可以使用`Scrapy`库
+- 爬取全网。大规模，搜索引擎，爬取速度关键。
+
+网络爬虫带来的风险问题：
+- 骚扰问题：网络爬虫将会为web服务器带来巨大的资源开销。
+- 法律问题：服务器上的数据有产权归属，会带来法律风险。
+- 隐私问题
+
+网络爬虫的限制：
+- 来源限制：判断`User-Agent`进行限制。检查来访问HTTP协议头的`User-Agent`，只响应浏览器或友好爬虫的访问。
+- 发布公告：`Robots`协议。
 
 
 ## Urllib
