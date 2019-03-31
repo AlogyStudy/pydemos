@@ -1,4 +1,3 @@
-
 ## 相关信息
 
 - `Robots.txt`协议，网络爬虫排除标准。
@@ -256,4 +255,48 @@ proxy_handler = request.ProxyHandler({
 opener = request.build_opener(proxy_handler)
 resp = opener.open('http://www.baidu.com')
 print(resp.read())
+```
+
+## bs4
+
+bs4基本类型：
+- `Tag`, `soup.a`: 标签，最基本的信息组织单元。
+- `Name`, `soup.name`: 标签的名字。
+- `Attributes`, `soup.attrs`: 标签的属性。
+- `NavigableString`, `soup.a.string`: 标签内非属性字符串。
+- `Comment`, `soup.html.string`: 标签内字符串的注释部分。
+
+bs4标签节点遍历：
+- 下行遍历：`.children`, `.contents`
+- 上行遍历：`.parent`, `.parents`
+- 平行遍历：`.next_sibling`, `.prev_sibling`
+
+bs4中的`prettify()`方法。
+```
+soup.a.perttify()
+```
+
+> 查询
+```python
+soup.find_all('div')
+```
+
+## 信息标记
+
+信息标记形式: `xml`, `json`, `yaml`
+
+`xml`, 最早通用信息标记语言，可扩展好，但繁琐。
+`json`, 信息有类型，适合程序处理，较简洁。
+`yaml`, 信息无类型，文本信息比例最高，可读性好。各类系统的配置文件。
+
+> yaml
+
+```yaml
+key1: val1
+key2: val2
+- value1
+- value2
+key3: 
+    key4: val4
+key5: # test
 ```
