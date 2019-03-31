@@ -28,6 +28,23 @@ Disallow: /
 
 类似人类访问的行为，访问次数很小，可以不遵守`Robots`协议。
 
+> 爬虫常用相关库
+
+获取：
+- `import requests`
+- `from urllib import request`
+- `import scrapy`
+
+解析：
+- `from bs4 import BeautifulSoup`
+- `from lxml import etree`
+- `import jsonpath`
+- `import re`
+
+- `import http.cookiejar`
+- `import aiohttp`
+- `import asyncio`
+
 ## Requests
 
 自动爬取HTML页面，自动网络请求提交。
