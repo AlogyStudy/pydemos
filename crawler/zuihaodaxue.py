@@ -26,7 +26,8 @@ def fillUnivList(uList, html):
 
 def printUniv(uList, num):
     # print('Suc' + str(num))
-    tmpl = '{0:^10}\t{1:{3}^10}}\t{2:^10}\t{3:^10}'
+    # tmpl = '{0:^10}\t{1:{3}^10}\t{2:^10}\t{3:{3}^10}'
+    tmpl = '{:^10}\t{:^6}\t{:^10}\t{:^10}'
     print(tmpl.format('排名', '学校名称', '位置', '总分', chr(12288)))
     for i in range(num):
         u = uList[i]

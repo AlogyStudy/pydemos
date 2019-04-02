@@ -300,3 +300,19 @@ key3:
     key4: val4
 key5: # test
 ```
+
+## scrapy
+
+`scrapy`是一个爬虫框架，实现爬虫功能的一个软件结构和功能组件集合。
+
+`scrapy`是5+2结构：
+EGINE 引擎，
+SCHEDULER 调度器，
+DOWLOADER 下载器，
+SPIDERS 爬虫，
+ITEM PIPLINES 项目管道。
+
+Downloader Middlewares 下载中间件。
+Spider Middlewares 爬虫中间件。
+
+需要编写的模块：项目管道和爬虫，其它都是`scrapy`已经写好的。
