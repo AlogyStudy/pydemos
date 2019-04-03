@@ -306,13 +306,29 @@ key5: # test
 `scrapy`是一个爬虫框架，实现爬虫功能的一个软件结构和功能组件集合。
 
 `scrapy`是5+2结构：
-EGINE 引擎，
-SCHEDULER 调度器，
-DOWLOADER 下载器，
-SPIDERS 爬虫，
-ITEM PIPLINES 项目管道。
+- EGINE 引擎
+    整个框架的核心
+    控制所有模块的数据流
+    根据条件触发事件
+    不需要用户修改
+- SCHEDULER 调度器
+    对所有爬虫请求进行调度管理
+    不需要用户修改
+- DOWLOADER 下载器
+    根据请求下载网页
+    不需要用户进行修改
+- SPIDERS 爬虫
+    解析`Dowloader`返回的响应(response)
+    产生爬取项（scraped item）
+    产生额外的爬取请求(request)
+    需要用户编写配置代码
+- ITEM PIPLINES 项目管道
+    以流水线方式处理`Spiders`产生的爬取项
+    由一组操作顺序组成，类似流水线，每个操作是一个`Item Piplines`类型。
+    可能操作包括：清理，检验和查重爬取项中的HTML数据，将数据存储到数据库中。
+    需要用户编写逻辑代码。
 
-Downloader Middlewares 下载中间件。
-Spider Middlewares 爬虫中间件。
+`Downloader Middlewares` 下载中间件：对`Engine`, `Scheduler`, `Downloader`之间进行用户可配置的控制。 用户可以根据该中间件，修改，丢弃，新增请求或响应。
+`Spider Middlewares` 爬虫中间件：对`Spiders`和`Item Piplines`之间，对请求和爬取项的再处理。功能包括，修改，丢弃，新增请求或爬取项。
 
 需要编写的模块：项目管道和爬虫，其它都是`scrapy`已经写好的。
