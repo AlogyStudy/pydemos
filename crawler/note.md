@@ -332,3 +332,12 @@ key5: # test
 `Spider Middlewares` 爬虫中间件：对`Spiders`和`Item Piplines`之间，对请求和爬取项的再处理。功能包括，修改，丢弃，新增请求或爬取项。
 
 需要编写的模块：项目管道和爬虫，其它都是`scrapy`已经写好的。
+
+```shell
+scrapy startproject # 创建一个新项目
+scrapy genspider # 创建一个爬虫
+scrapy settings # 获得爬虫配置信息
+scrapy crawl # 运行爬虫
+scrapy list # 列出项目中所有爬虫
+scrapy shell # 启动URL调试命令行
+```
